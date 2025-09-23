@@ -1,8 +1,11 @@
 package com.example.movieapp.Activity
 
+import android.content.Intent
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -16,6 +19,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
@@ -41,12 +46,30 @@ import com.example.movieapp.R
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContent {
+            LoginScreen(onLoginClick = {
+                startActivity(
+                    Intent(
+                        this,
+                        MainActivity::class.java
+                    )
+                )
+            }
+
+
+            )
+        }
     }
 }
 
 @Composable
 @Preview(showBackground = true)
-fun LoginScreen() {
+fun LoginScreenPreview() {
+    LoginScreen(onLoginClick = {})
+}
+
+@Composable
+fun LoginScreen(onLoginClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -74,12 +97,75 @@ fun LoginScreen() {
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(128.dp))
+            GradientTextField(
+                hint = "Username",
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            GradientTextField(
+                hint = "Password",
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = "Forget your Password?",
+                style = TextStyle(
+                    color = Color.White,
+                    fontSize = 16.sp,
+                    textAlign = TextAlign.Center
+                ),
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(64.dp))
+//            GradientTextField(
+//                hint = "Password",
+//                modifier = Modifier.fillMaxWidth()
+//            )
+            GradientButton(
+                text = "Login",
+                onClick = onLoginClick,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+            )
+
 
         }
 
     }
 }
 
+@Composable
+fun GradientButton(
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Button(
+        onClick = onClick,
+        modifier = modifier,
+        shape = RoundedCornerShape(60.dp),
+        border = BorderStroke(
+            width = 4.dp,
+            brush = Brush.linearGradient(
+                colors = listOf(colorResource(R.color.pink), colorResource(R.color.green))
+            )
+        ),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = Color.Transparent,
+            contentColor = Color.White
+        )
+
+    ) {
+        Text(
+            text = text,
+            fontSize = 22.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.White
+        )
+
+    }
+}
 
 @Composable
 fun GradientTextField(
@@ -96,6 +182,7 @@ fun GradientTextField(
                 ),
                 shape = RoundedCornerShape(50.dp)
             )
+            .padding(4.dp)
 
     ) {
         OutlinedTextField(
