@@ -54,7 +54,7 @@ class SplashActivity : AppCompatActivity() {
 fun IntroScreenPreview() {
     IntroScreen(onGetInClick = {})
 }
-
+//just fo check
 @Composable
 fun IntroScreen(onGetInClick: () -> Unit = {}) {
     Box(
