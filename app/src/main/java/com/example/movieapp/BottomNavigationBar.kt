@@ -1,6 +1,5 @@
 package com.example.movieapp
 
-import android.app.ApplicationErrorReport
 import android.widget.Toast
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
