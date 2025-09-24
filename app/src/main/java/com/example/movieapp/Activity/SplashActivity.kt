@@ -1,5 +1,6 @@
 package com.example.movieapp.Activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -38,12 +39,13 @@ import androidx.compose.ui.unit.sp
 import com.example.movieapp.R
 
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             IntroScreen(onGetInClick = {
-
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
             })
         }
     }
